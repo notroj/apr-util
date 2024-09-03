@@ -57,6 +57,7 @@ jobs:
             config-output: APU_HAVE_CRYPTO APU_HAVE_OPENSSL APU_HAVE_SDBM
             notest-cflags: -Werror
             os: ubuntu-20.04
+            packages: libdb5.3-dev libldap-dev libsasl2-dev
     runs-on: ${{ matrix.os }}
     env:
       NOTEST_CFLAGS: ${{ matrix.notest-cflags }}
