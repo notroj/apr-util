@@ -14,6 +14,7 @@ jobs:
 
   build:
     strategy:
+      fail-fast: false
       matrix:
         include: 
           - name: APR 1.7.x
@@ -27,7 +28,7 @@ jobs:
             apr-config: --enable-maintainer-mode
             config-output: APU_HAVE_SDBM
             notest-cflags: -Werror
-          - name: APR 1.6.x LDAP + maintainer-mode
+          - name: APR 1.7.x LDAP + maintainer-mode
             apr-version: 1.7.x
             apr-config: --enable-maintainer-mode
             config-output: APU_HAVE_SDBM
@@ -41,8 +42,12 @@ jobs:
             config: --with-dbm=db5 --with-berkeley-db --with-gdbm --with-ndbm
             notest-cflags: -Werror
             packages: libdb5.3-dev
-      fail-fast: false
-
+          - name: APR 1.7.x OpenSSL + maintainer-mode
+            apr-version: 1.7.x
+            apr-config: --enable-maintainer-mode
+            config: --with-crypto=yes --with-openssl=yes
+            config-output: APU_HAVE_CRYPTO APU_HAVE_OPENSSL APU_HAVE_SDBM
+            notest-cflags: -Werror
     runs-on: ubuntu-latest
     env:
       NOTEST_CFLAGS: ${{ matrix.notest-cflags }}
