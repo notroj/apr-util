@@ -48,21 +48,15 @@ jobs:
             config-output: APU_HAVE_CRYPTO APU_HAVE_OPENSSL APU_HAVE_SDBM
             notest-cflags: -Werror
             os: ubuntu-latest
-          - name: APR 1.7.x Databases + maintainer-mode
+          - name: APR 1.7.x LDAP+DB+OpenSSL, Ubuntu 20.04
             apr-version: 1.7.x
             apr-config: --enable-maintainer-mode
-            config-output: APU_HAVE_SDBM
-            config: --with-dbm=db5 --with-berkeley-db --with-gdbm --with-ndbm
-            notest-cflags: -Werror
-            packages: libdb5.3-dev
-            os: ubuntu-latest
-          - name: APR 1.7.x Ubuntu 20
-            apr-version: 1.7.x
-            apr-config: --enable-maintainer-mode
-            config: --with-crypto=yes --with-openssl=yes
+            config: >-
+              --with-crypto=yes --with-openssl=yes --with-ldap
+              --with-dbm=db5 --with-berkeley-db --with-gdbm --with-ndbm
             config-output: APU_HAVE_CRYPTO APU_HAVE_OPENSSL APU_HAVE_SDBM
             notest-cflags: -Werror
-            os: ubuntu-latest
+            os: ubuntu-20.04
     runs-on: ${{ matrix.os }}
     env:
       NOTEST_CFLAGS: ${{ matrix.notest-cflags }}
