@@ -27,6 +27,19 @@ jobs:
             apr-config: --enable-maintainer-mode
             config-output: APU_HAVE_SDBM
             notest-cflags: -Werror
+          - name: APR 1.6.x LDAP + maintainer-mode
+            apr-version: 1.7.x
+            apr-config: --enable-maintainer-mode
+            config-output: APU_HAVE_SDBM
+            config: --with-ldap
+            notest-cflags: -Werror
+          - name: APR 1.7.x Databases + maintainer-mode
+            apr-version: 1.7.x
+            apr-config: --enable-maintainer-mode
+            config-output: APU_HAVE_SDBM
+            config: --with-dbm=db5 --with-berkeley-db --with-gdbm --with-ndbm
+            notest-cflags: -Werror
+            packages: libdb5.3-dev
       fail-fast: false
 
     runs-on: ubuntu-latest
